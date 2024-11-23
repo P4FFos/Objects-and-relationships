@@ -1,0 +1,49 @@
+public class Employee {
+    private String id;
+    private String name;
+    private double grossSalary;
+    private static final double GROSS_SALARY_TAX = 0.1;
+
+
+    public Employee(String id, String name, double grossSalary) {
+        this.id = id;
+        this.name = name;
+        this.grossSalary = Util.truncate(grossSalary);
+    }
+
+
+    //Getters
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getGrossSalary() {
+        return grossSalary;
+    }
+
+    public double getNetSalary() {
+        double netSalary = getGrossSalary() - (getGrossSalary() * GROSS_SALARY_TAX);
+        return netSalary;
+    }
+
+    //Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGrossSalary(double grossSalary) {
+        this.grossSalary = grossSalary;
+    }
+
+    //String representation
+    @Override
+    public String toString() {
+        return String.format("%s's gross salary is %f SEK per month", this.name, this.grossSalary);
+    }
+
+
+}
