@@ -1,16 +1,14 @@
-public class Employee implements Comparable<Employee>{
+public class Employee implements Comparable<Employee> {
     private String id;
     private String name;
     private double grossSalary;
     private static final double GROSS_SALARY_TAX = 0.1;
-
 
     public Employee(String id, String name, double grossSalary) {
         this.id = id;
         this.name = name;
         this.grossSalary = Util.truncate(grossSalary);
     }
-
 
     //Getters
     public String getId() {

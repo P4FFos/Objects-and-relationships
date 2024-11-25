@@ -52,6 +52,40 @@ public class Company {
         return false;
     }
 
+
+    // Update manager degree
+    public boolean updateManagerDegree(String id, String newDegree) {
+        Employee foundEmployee = findEmployeeById(id);
+        if (foundEmployee instanceof Manager) {
+            ((Manager) foundEmployee).setDegree(newDegree);
+            System.out.println(String.format("Employee %s was updated successfully", id));
+            return true;
+        }
+        return false;
+    }
+
+    // Update director department
+    public boolean updateDirectorDepartment(String id, String newDepartment) {
+        Employee foundEmployee = findEmployeeById(id);
+        if (foundEmployee instanceof Director) {
+            ((Director) foundEmployee).setDepartment(newDepartment);
+            System.out.println(String.format("Employee %s was updated successfully", id));
+            return true;
+        }
+        return false;
+    }
+
+    // Update intern GPA
+    public boolean updateInternGpa(String id, double newGpa) {
+        Employee foundEmployee = findEmployeeById(id);
+        if (foundEmployee instanceof Intern) {
+            ((Intern) foundEmployee).setGpa(newGpa);
+            System.out.println(String.format("Employee %s was updated successfully", id));
+            return true;
+        }
+        return false;
+    }
+
     // Print all employees registered
     public void printRegisteredEmployees() {
         System.out.println("All registered employees:\n");
