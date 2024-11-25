@@ -52,6 +52,14 @@ public class Company {
         return false;
     }
 
+    // Print all employees registered
+    public void printRegisteredEmployees() {
+        System.out.println("All registered employees:\n");
+        for (Employee employee : employees) {
+            System.out.println(employee.toString());
+        }
+    }
+
     // Print employees sorted by gross salary
     public void printEmployeesSortedByGrossSalary() {
         Collections.sort(employees);
