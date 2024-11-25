@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Company {
@@ -25,16 +26,13 @@ public class Company {
     }
 
     // Remove an employee by ID
-    public boolean removeEmployee(String id) {
-        Employee foundEmployee = findEmployeeById(id);
-        if (foundEmployee != null) {
-            employees.remove(foundEmployee);
-            return true;
-        }
-        return false;
+    public String removeEmployee(String employeeID) {
+        Employee foundEmployee = findEmployeeById(employeeID);
+        employees.remove(foundEmployee);
+        return String.format("Employee %s was successfully removed.", employeeID);
     }
 
-    // Update an employee's name
+    // Update employee name
     public boolean updateEmployeeName(String id, String newName) {
         Employee foundEmployee = findEmployeeById(id);
         if (foundEmployee != null) {
@@ -44,7 +42,7 @@ public class Company {
         return false;
     }
 
-    // Update an employee's gross salary
+    // Update employee gross salary
     public boolean updateEmployeeSalary(String id, double newGrossSalary) {
         Employee foundEmployee = findEmployeeById(id);
         if (foundEmployee != null) {
@@ -52,5 +50,14 @@ public class Company {
             return true;
         }
         return false;
+    }
+
+    // Print employees sorted by gross salary
+    public void printEmployeesSortedByGrossSalary() {
+        Collections.sort(employees);
+        System.out.println("Employees sorted by gross salary (ascending order):" + "\n");
+        for (Employee employee : employees) {
+            System.out.println(employee);
+        }
     }
 }

@@ -1,4 +1,4 @@
-public class Employee {
+public class Employee implements Comparable<Employee>{
     private String id;
     private String name;
     private double grossSalary;
@@ -45,5 +45,14 @@ public class Employee {
         return String.format("%s's gross salary is %f SEK per month", this.name, this.grossSalary);
     }
 
-
+    @Override
+    public int compareTo(Employee anotherEmployee) {
+        if (this.getGrossSalary() > anotherEmployee.getGrossSalary()) {
+            return 1;
+        } else if (this.getGrossSalary() == anotherEmployee.getGrossSalary()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 }
