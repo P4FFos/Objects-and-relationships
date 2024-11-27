@@ -16,74 +16,106 @@ public class Company {
     }
 
     // Find an employee by ID
-    private Employee findEmployeeById(String employeeID) {
+    private Employee findEmployeeById(String employeeID) throws EmployeeNotFound{
         for (Employee employee : employees) {
             if (employee.getId().equals(employeeID)) {
                 return employee;
-            }
+            } 
         }
-        return null;
+        throw new EmployeeNotFound("Employee " + employeeID + " was not registered yet.");
     }
 
     // Remove an employee by ID
     public String removeEmployee(String employeeID) {
-        Employee foundEmployee = findEmployeeById(employeeID);
-        employees.remove(foundEmployee);
-        return String.format("Employee %s was successfully removed.", employeeID);
+        try {
+            Employee foundEmployee = findEmployeeById(employeeID);
+            employees.remove(foundEmployee);
+            return String.format("Employee %s was successfully removed.", employeeID);
+            
+        } catch (EmployeeNotFound e) {
+            return String.format("Error: " + e.getMessage());
+        }
     }
 
     // Update employee name
     public boolean updateEmployeeName(String id, String newName) {
-        Employee foundEmployee = findEmployeeById(id);
-        if (foundEmployee != null) {
+        try {
+            Employee foundEmployee = findEmployeeById(id);
             foundEmployee.setName(newName);
             return true;
+        } catch (EmployeeNotFound e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // Update employee gross salary
     public boolean updateEmployeeSalary(String id, double newGrossSalary) {
-        Employee foundEmployee = findEmployeeById(id);
-        if (foundEmployee != null) {
+        try {
+            Employee foundEmployee = findEmployeeById(id);
             foundEmployee.setGrossSalary(newGrossSalary);
             return true;
+        } catch (EmployeeNotFound e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
 
     // Update manager degree
     public boolean updateManagerDegree(String id, String newDegree) {
-        Employee foundEmployee = findEmployeeById(id);
-        if (foundEmployee instanceof Manager) {
-            ((Manager) foundEmployee).setDegree(newDegree);
-            System.out.println(String.format("Employee %s was updated successfully", id));
-            return true;
+        try {
+            Employee foundEmployee = findEmployeeById(id);
+            if (foundEmployee instanceof Manager) {
+                ((Manager) foundEmployee).setDegree(newDegree);
+                System.out.println(String.format("Employee %s was updated successfully", id));
+                return true;
+            } else {
+                System.out.println(String.format("Employee %s is not a Manager", id));
+                return false;
+            }
+        } catch (EmployeeNotFound e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // Update director department
     public boolean updateDirectorDepartment(String id, String newDepartment) {
-        Employee foundEmployee = findEmployeeById(id);
-        if (foundEmployee instanceof Director) {
-            ((Director) foundEmployee).setDepartment(newDepartment);
-            System.out.println(String.format("Employee %s was updated successfully", id));
-            return true;
+        try {
+            Employee foundEmployee = findEmployeeById(id);
+            if (foundEmployee instanceof Director) {
+                ((Director) foundEmployee).setDepartment(newDepartment);
+                System.out.println(String.format("Employee %s was updated successfully", id));
+                return true;
+            } else {
+                System.out.println(String.format("Employee %s is not a Director", id));
+                return false;
+            }
+            
+        } catch (EmployeeNotFound e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // Update intern GPA
     public boolean updateInternGpa(String id, double newGpa) {
-        Employee foundEmployee = findEmployeeById(id);
-        if (foundEmployee instanceof Intern) {
-            ((Intern) foundEmployee).setGpa(newGpa);
-            System.out.println(String.format("Employee %s was updated successfully", id));
-            return true;
+        try {
+            Employee foundEmployee = findEmployeeById(id);
+            if (foundEmployee instanceof Intern) {
+                ((Intern) foundEmployee).setGpa(newGpa);
+                System.out.println(String.format("Employee %s was updated successfully", id));
+                return true;
+            } else {
+                System.out.println(String.format("Employee %s is not an Intern", id));
+                return false;
+            }
+            
+        } catch (EmployeeNotFound e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // Print all employees registered
