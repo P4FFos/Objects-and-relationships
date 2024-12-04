@@ -92,7 +92,7 @@ public class Company {
                 System.out.println(String.format("Employee %s is not a Director", id));
                 return false;
             }
-            
+
         } catch (EmployeeNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return false;
@@ -111,7 +111,7 @@ public class Company {
                 System.out.println(String.format("Employee %s is not an Intern", id));
                 return false;
             }
-            
+
         } catch (EmployeeNotFound e) {
             System.err.println("Error: " + e.getMessage());
             return false;
@@ -134,4 +134,37 @@ public class Company {
             System.out.println(employee);
         }
     }
+
+    public void printSumNetSalaries() {
+        double sumNetSalaries = 0;
+        for (Employee employee : employees) {
+            sumNetSalaries += Employee.getNetSalary(); }
+            System.out.println("Employees sum net salaries: " + sumNetSalaries);
+    }
+
+    public void printEmployeesPerDegree() {
+        int BScAmount = 0;
+        int MScAmount = 0;
+        int PhdAmount = 0;
+        for (Employee employee : employees) {
+            if (employee instanceof Manager) {
+                String degree = Manager.getDegree();
+                if (degree == "BSc") {
+                    BScAmount++;
+                } else if (degree == "MSc") {
+                    MScAmount++;
+                } else if (degree == "PhD") {
+                    PhdAmount++;
+                }
+            }
+        }
+        if (BScAmount > 0) {
+            System.out.println("BSc: => " + BScAmount);
+        } else if (MScAmount > 0) {
+            System.out.println("MSc: => " + MScAmount);
+        } else if (PhdAmount > 0) {
+            System.out.println("Phd: => " + PhdAmount);
+        }
+    }
 }
+

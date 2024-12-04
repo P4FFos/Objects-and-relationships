@@ -1,8 +1,8 @@
 public class Employee implements Comparable<Employee> {
     private String id;
     private String name;
-    private double grossSalary;
-    private static final double GROSS_SALARY_TAX = 0.1;
+    protected double grossSalary;
+    protected static final double GROSS_SALARY_TAX = 0.1;
 
     public Employee(String id, String name, double grossSalary) {
         this.id = id;
@@ -37,7 +37,7 @@ public class Employee implements Comparable<Employee> {
         this.grossSalary = grossSalary;
     }
 
-    //String representation
+    //String representations
     @Override
     public String toString() {
         return String.format("%s's gross salary is %f SEK per month", this.name, this.grossSalary);
