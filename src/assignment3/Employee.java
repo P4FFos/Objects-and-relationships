@@ -1,4 +1,4 @@
-package Root;
+package assignment3;
 
 public class Employee implements Comparable<Employee> {
     // Attributes
@@ -24,7 +24,7 @@ public class Employee implements Comparable<Employee> {
     }
 
     public double getGrossSalary() {
-        return grossSalary;
+        return Util.truncate(grossSalary);
     }
 
     public double getNetSalary() {
@@ -38,13 +38,13 @@ public class Employee implements Comparable<Employee> {
     }
 
     public void setGrossSalary(double newGrossSalary) {
-        this.grossSalary = newGrossSalary;
+        this.grossSalary = Util.truncate(newGrossSalary);
     }
 
     // String representations
     @Override
     public String toString() {
-        return String.format("%s's gross salary is %f SEK per month", this.name, this.grossSalary);
+        return String.format("%s's gross salary is %f SEK per month", this.name, getGrossSalary());
     }
 
     // Compare two employees by their gross salary

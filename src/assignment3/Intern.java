@@ -1,4 +1,4 @@
-package Root;
+package assignment3;
 
 public class Intern extends Employee {
     // Attributes

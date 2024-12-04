@@ -1,4 +1,4 @@
-package Root;
+package assignment3;
 
 public class EmployeeFactory {
     public static Employee createEmployee(String id, String name, double grossSalary){

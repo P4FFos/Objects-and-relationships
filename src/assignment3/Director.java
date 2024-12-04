@@ -1,4 +1,4 @@
-package Root;
+package assignment3;
 
 public class Director extends Manager {
     // Attributes
