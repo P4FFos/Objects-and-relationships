@@ -8,33 +8,43 @@ public class Manager extends Employee {
     public Manager(String id, String name, double grossSalary, String degree) {
         super(id, name, grossSalary);
         this.degree = degree;
-        getGrossSalary();
     }
 
     // Getters
     public String getDegree() {
-        return degree;
+        return this.degree;
     }
 
     // Setters
     public void setDegree(String newDegree) {
-        degree = newDegree;
-        getGrossSalary();
+        this.degree = newDegree;
+        this.getGrossSalary();
     }
 
     // Calculate gross salary
     @Override
     public double getGrossSalary() {
-        if (degree.equals("BSc")) {
-            super.setGrossSalary(Util.truncate(getGrossSalary() + getGrossSalary() * 0.1));
-        } else if (degree.equals("MSc")) {
-            super.setGrossSalary(Util.truncate(getGrossSalary() + getGrossSalary() * 0.2));
-        } else if (degree.equals("PhD")) {
-            super.setGrossSalary(Util.truncate(getGrossSalary() + getGrossSalary() * 0.35));
-        } else {
-            System.out.println("Invalid Degree");
+        double grossSalaryWithBonus = 0;
+        switch (getDegree()) {
+            case "BSc":
+                grossSalaryWithBonus = (this.grossSalary * 1.1);
+                break;
+            case "MSc":
+                grossSalaryWithBonus = (this.grossSalary * 1.2);
+                break;
+            case "PhD":
+                grossSalaryWithBonus = (this.grossSalary * 1.35);
+                break;
+            default:
+                System.out.println("Invalid Degree");
+                break;
         }
-        return 0;
+        return Util.truncate(grossSalaryWithBonus);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s's gross salary is %.2f SEK per month.", this.degree, this.getName(), this.getGrossSalary());
     }
 }
 

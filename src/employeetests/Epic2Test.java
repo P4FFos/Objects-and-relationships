@@ -171,7 +171,7 @@ public class Epic2Test {
         Exception exceptionInvalidDegree = assertThrows(Exception.class, () -> {
             facade.createEmployee("ID1", "Joanne", 5000.23, "BCS");
         });
-
+        
         // Create valid and then try to update to invalid.
         facade.createEmployee("ID1", "Joanne", 20000.50, "BSc");
         Exception exceptionUpdName = assertThrows(Exception.class, () -> {

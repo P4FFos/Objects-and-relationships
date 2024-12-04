@@ -16,20 +16,20 @@ public class Employee implements Comparable<Employee> {
 
     // Getters
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public double getGrossSalary() {
-        return Util.truncate(grossSalary);
+        return this.grossSalary;
     }
 
     public double getNetSalary() {
         double netSalary = getGrossSalary() - (getGrossSalary() * GROSS_SALARY_TAX);
-        return Util.truncate(netSalary);
+        return netSalary;
     }
 
     // Setters
@@ -44,7 +44,7 @@ public class Employee implements Comparable<Employee> {
     // String representations
     @Override
     public String toString() {
-        return String.format("%s's gross salary is %f SEK per month", this.name, getGrossSalary());
+        return String.format("%s's gross salary is %.2f SEK per month.", this.name, this.getGrossSalary());
     }
 
     // Compare two employees by their gross salary

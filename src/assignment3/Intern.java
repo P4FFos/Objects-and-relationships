@@ -2,22 +2,21 @@ package assignment3;
 
 public class Intern extends Employee {
     // Attributes
-    private double gpa;
+    private int gpa;
 
     // Constructor
-    public Intern(String id, String name, double grossSalary, double gpa) {
+    public Intern(String id, String name, double grossSalary, int gpa) {
         super(id, name, grossSalary);
         this.gpa = gpa;
-        getGrossSalary();
     }
 
     // Getters
-    public double getGpa() {
-        return gpa;
+    public int getGpa() {
+        return this.gpa;
     }
 
     // Setters
-    public void setGpa(double newGpa) {
+    public void setGpa(int newGpa) {
         this.gpa = newGpa;
         getGrossSalary();
     }
@@ -25,27 +24,28 @@ public class Intern extends Employee {
     // Calculate gross salary
     @Override
     public double getGrossSalary() {
+        double totalGrossSalary = 0;
         if (this.gpa <= 5) {
-            super.setGrossSalary(0);
-        } else if (5 < this.gpa && this.gpa  < 8) {
-            super.setGrossSalary(getGrossSalary());
+            totalGrossSalary = 0;
+        } else if (5 < this.gpa && this.gpa < 8) {
+            totalGrossSalary = this.grossSalary;
         } else if (8 <= this.gpa && this.gpa <= 10) {
-            super.setGrossSalary(getGrossSalary() + 1000);
+            totalGrossSalary = this.grossSalary + 1000;
         } else {
             System.out.println("Invalid GPA");
         }
-        return 0;
+        return Util.truncate(totalGrossSalary);
     }
 
     // Get Net Salary
     @Override
     public double getNetSalary() {
         double netSalary = getGrossSalary();
-        return Util.truncate(netSalary);
+        return netSalary;
     }
 
     // toString method to print the object in a specific format
     public String toString() {
-        return super.toString() + "GPA: " + getGpa();
+        return super.toString() + " GPA: " + getGpa();
     }
 }
