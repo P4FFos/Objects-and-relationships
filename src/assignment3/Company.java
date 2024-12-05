@@ -98,8 +98,6 @@ public class Company {
     public boolean checkIfEmployeeExists(String employeeId) throws Exception {
         if (employeeId.isEmpty()) {
             throw new Exception("ID cannot be blank.");
-        } else if (employees.isEmpty()) {
-            throw new Exception("No employees registered yet.");
         }
         for (Employee employee : employees) {
             if (employee.getId().equals(employeeId)) {
