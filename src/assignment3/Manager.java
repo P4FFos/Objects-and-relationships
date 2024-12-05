@@ -5,8 +5,8 @@ public class Manager extends Employee {
     private String degree;
 
     // Constructor
-    public Manager(String id, String name, double grossSalary, String degree) {
-        super(id, name, grossSalary);
+    public Manager(String employeeId, String name, double grossSalary, String degree) {
+        super(employeeId, name, grossSalary);
         this.degree = degree;
     }
 

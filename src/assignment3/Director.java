@@ -6,8 +6,8 @@ public class Director extends Manager {
     private final static int BONUS = 5000;
 
     // Constructor
-    public Director(String id, String name, double grossSalary, String Degree, String Department) {
-        super(id, name, grossSalary, Degree);
+    public Director(String employeeId, String name, double grossSalary, String Degree, String Department) {
+        super(employeeId, name, grossSalary, Degree);
         this.department = Department;
     }
 
@@ -63,6 +63,5 @@ public class Director extends Manager {
     @Override
     public String toString() {
         return String.format("%s %s's gross salary is %.2f SEK per month. Dept: %s", this.getDegree(), this.getName(), this.getGrossSalary(), this.getDepartment());
-        //PhD Ricky's gross salary is 36725.00 SEK per month. Dept: Human Resources
     }
 }

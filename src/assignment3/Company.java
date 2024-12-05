@@ -41,7 +41,7 @@ public class Company {
         } else if (grossSalary < 0){
             throw new Exception("Salary must be greater than zero.");
         } else if (gpa < 0) {
-            throw new Exception("-5 outside range. Must be between 0-10.");
+            throw new Exception(String.format("%s outside range. Must be between 0-10.", gpa));
         }
         if (checkIfEmployeeExists(id)) {
             throw new Exception("Cannot register. ID " + id + " is already registered.");
@@ -94,9 +94,15 @@ public class Company {
         }
     }
 
-    public boolean checkIfEmployeeExists(String id) {
+    // Check if employee exists
+    public boolean checkIfEmployeeExists(String employeeId) throws Exception {
+        if (employeeId.isEmpty()) {
+            throw new Exception("ID cannot be blank.");
+        } else if (employees.isEmpty()) {
+            throw new Exception("No employees registered yet.");
+        }
         for (Employee employee : employees) {
-            if (employee.getId().equals(id)) {
+            if (employee.getId().equals(employeeId)) {
                 return true;
             }
         }
@@ -104,139 +110,178 @@ public class Company {
     }
 
     // Find an employee by ID
-    private Employee findEmployeeById(String employeeID) throws Exception {
+    private Employee findEmployeeById(String employeeId) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
         for (Employee employee : employees) {
-            if (employee.getId().equals(employeeID)) {
+            if (employee.getId().equals(employeeId)) {
                 return employee;
             }
         }
-        throw new EmployeeNotFound("Employee " + employeeID + " was not registered yet.");
+        throw new EmployeeNotFound("Employee " + employeeId + " was not registered yet.");
     }
 
     // Remove an employee by ID
-    public String removeEmployee(String employeeID) throws Exception {
-        Employee foundEmployee = findEmployeeById(employeeID);
+    public String removeEmployee(String employeeId) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        Employee foundEmployee = findEmployeeById(employeeId);
         employees.remove(foundEmployee);
-        return String.format("Employee %s was successfully removed.", employeeID);
+        return String.format("Employee %s was successfully removed.", employeeId);
     }
 
     // Update employee name
-    public String updateEmployeeName(String id, String newName) throws Exception{
+    public String updateEmployeeName(String employeeId, String newName) throws Exception{
         String message = "";
         if (newName.isEmpty()) {
             throw new Exception("Name cannot be blank.");
         }
-        Employee foundEmployee = findEmployeeById(id);
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        Employee foundEmployee = findEmployeeById(employeeId);
         foundEmployee.setName(newName);
-        message = "Employee " + id + " was updated successfully";
+        message = "Employee " + employeeId + " was updated successfully";
         return message;
     }
 
     // Update employee gross salary
-    public String updateGrossSalary(String id, double newGrossSalary) throws Exception{
+    public String updateGrossSalary(String employeeId, double newGrossSalary) throws Exception{
         String message = "";
         if (newGrossSalary <= 0) {
             throw new Exception("Salary must be greater than zero.");
         }
-        Employee foundEmployee = findEmployeeById(id);
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        Employee foundEmployee = findEmployeeById(employeeId);
         foundEmployee.setGrossSalary(newGrossSalary);
-        message = "Employee " + id + " was updated successfully";
+        message = "Employee " + employeeId + " was updated successfully";
 
         return message;
     }
 
     // Update manager degree
-    public String updateManagerDegree(String id, String newDegree) throws Exception{
+    public String updateManagerDegree(String employeeId, String newDegree) throws Exception{
         String message = "";
-        if (id.isEmpty()) {
+        if (employeeId.isEmpty()) {
             throw new Exception("ID cannot be blank.");
         } else if ((!"MSc".equals(newDegree)) && (!"PhD".equals(newDegree)) && (!"BSc".equals(newDegree))) {
             throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
         }
-        Employee foundEmployee = findEmployeeById(id);
+        Employee foundEmployee = findEmployeeById(employeeId);
         if (foundEmployee instanceof Manager) {
             ((Manager) foundEmployee).setDegree(newDegree);
-            message = "Employee " + id + " was updated successfully";
+            message = "Employee " + employeeId + " was updated successfully";
         } else {
-            System.out.println(String.format("Employee.Employee %s is not a Employee.Employee.Manager", id));
+            return String.format("Employee.Employee %s is not a Employee.Employee.Manager", employeeId);
         }
         return message;
     }
 
     // Update director department
-    public String updateDirectorDept(String id, String newDepartment) throws Exception{
+    public String updateDirectorDept(String employeeId, String newDepartment) throws Exception{
         String message = "";
-        if (id.isEmpty()) {
+        if (employeeId.isEmpty()) {
             throw new Exception("ID cannot be blank.");
         } else if ((!"Business".equals(newDepartment)) && (!"Human Resources".equals(newDepartment)) && (!"Technical".equals(newDepartment))) {
             throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
         }
-        Employee foundEmployee = findEmployeeById(id);
+        Employee foundEmployee = findEmployeeById(employeeId);
         if (foundEmployee instanceof Director) {
             ((Director) foundEmployee).setDepartment(newDepartment);
-            message = "Employee " + id + " was updated successfully";
+            message = "Employee " + employeeId + " was updated successfully";
         } else {
-            System.out.println(String.format("Employee.Employee %s is not a Employee.Director", id));
+            return String.format("Employee.Employee %s is not a Employee.Director", employeeId);
         }
 
         return message;
     }
 
     // Update intern GPA
-    public String updateInternGPA(String id, int newGpa) throws Exception{
+    public String updateInternGPA(String employeeId, int newGpa) throws Exception{
         String message = "";
-        if (id.isEmpty()) {
+        if (employeeId.isEmpty()) {
             throw new Exception("ID cannot be blank.");
         }  else if (newGpa > 10) {
-            throw new Exception("15 outside range. Must be between 0-10.");
+            throw new Exception(String.format("%s outside range. Must be between 0-10.", newGpa));
         }
-        Employee foundEmployee = findEmployeeById(id);
+        Employee foundEmployee = findEmployeeById(employeeId);
         if (foundEmployee instanceof Intern) {
             ((Intern) foundEmployee).setGpa(newGpa);
-            message = "Employee " + id + " was updated successfully";
+            message = "Employee " + employeeId + " was updated successfully";
         } else {
-            System.out.println(String.format("Employee.Employee %s is not an Employee.Employee.Intern", id));
+            return String.format("Employee.Employee %s is not an Employee.Employee.Intern", employeeId);
         }
         return message;
     }
 
-    public String promoteToManager(String id, String degree) throws Exception {
-        Employee employee = findEmployeeById(id);
+    public String promoteToManager(String employeeId, String degree) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        if (degree.isEmpty()){
+            throw new Exception("Degree cannot be blank.");
+        }
+        Employee employee = findEmployeeById(employeeId);
         String name = employee.getName();
         double grossSalary = employee.grossSalary;
         employees.remove(employee);
-        employee = EmployeeFactory.createManager(id, name, grossSalary, degree);
+        employee = EmployeeFactory.createManager(employeeId, name, grossSalary, degree);
         employees.add(employee);
-        return String.format("%s promoted successfully to Manager.", id);
+        return String.format("%s promoted successfully to Manager.", employeeId);
     }
 
-    public String promoteToDirector(String id, String degree, String department) throws Exception {
-        Employee employee = findEmployeeById(id);
+    public String promoteToDirector(String employeeId, String degree, String department) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        if (department.isEmpty()){
+            throw new Exception("Department cannot be blank.");
+        }
+        if (degree.isEmpty()){
+            throw new Exception("Degree cannot be blank.");
+        }
+        Employee employee = findEmployeeById(employeeId);
         String name = employee.getName();
         double grossSalary = employee.grossSalary;
         employees.remove(employee);
-        employee = EmployeeFactory.createDirector(id, name, grossSalary, degree, department);
+        employee = EmployeeFactory.createDirector(employeeId, name, grossSalary, degree, department);
         employees.add(employee);
-        return String.format("%s promoted successfully to Director.", id);
+        return String.format("%s promoted successfully to Director.", employeeId);
     }
 
-    public String promoteToIntern(String id, int gpa) throws Exception {
-        Employee employee = findEmployeeById(id);
+    public String promoteToIntern(String employeeId, int gpa) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        if (gpa < 0 || gpa > 10) {
+            throw new Exception(String.format("%s outside range. Must be between 0-10.", gpa));
+        }
+        Employee employee = findEmployeeById(employeeId);
         String name = employee.getName();
         double grossSalary = employee.grossSalary;
         employees.remove(employee);
-        employee = EmployeeFactory.createIntern(id, name, grossSalary, gpa);
+        employee = EmployeeFactory.createIntern(employeeId, name, grossSalary, gpa);
         employees.add(employee);
-        return String.format("%s promoted successfully to Intern.", id);
+        return String.format("%s promoted successfully to Intern.", employeeId);
     }
 
-    public String printEmployee(String id) throws Exception {
-        Employee foundEmployee = findEmployeeById(id);
+    public String printEmployee(String employeeId) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        Employee foundEmployee = findEmployeeById(employeeId);
         return foundEmployee.toString();
     }
 
-    public double getNetSalary(String id) throws Exception {
-        Employee foundEmployee = findEmployeeById(id);
+    public double getNetSalary(String employeeId) throws Exception {
+        if (employeeId.isEmpty()){
+            throw new Exception("ID cannot be blank.");
+        }
+        Employee foundEmployee = findEmployeeById(employeeId);
         return Util.truncate(foundEmployee.getNetSalary());
     }
 

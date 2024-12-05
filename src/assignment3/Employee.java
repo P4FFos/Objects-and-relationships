@@ -2,21 +2,21 @@ package assignment3;
 
 public class Employee implements Comparable<Employee> {
     // Attributes
-    private String id;
+    private String employeeId;
     private String name;
     protected double grossSalary;
     protected static final double GROSS_SALARY_TAX = 0.1;
 
     // Constructor
-    public Employee(String id, String name, double grossSalary) {
-        this.id = id;
+    public Employee(String employeeId, String name, double grossSalary) {
+        this.employeeId = employeeId;
         this.name = name;
         this.grossSalary = Util.truncate(grossSalary);
     }
 
     // Getters
     public String getId() {
-        return this.id;
+        return this.employeeId;
     }
 
     public String getName() {

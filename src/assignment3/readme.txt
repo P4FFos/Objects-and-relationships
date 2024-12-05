@@ -6,3 +6,5 @@ Danis - 1.1, 1.5 and 1.6, 2.1
 
 Factory of Employees (DT2) - Done together
 
+Promotion of employees - Done together
+
